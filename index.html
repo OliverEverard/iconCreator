@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Image to Icon Converter</title>
+  </head>
+  <body>
+    <form>
+      <input type="file" accept="image/*">
+      <button type="submit">Convert</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.3.0/dist/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const file = event.target.querySelector('input[type="file"]').files[0];
+        const canvas = document.createElement('canvas');
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = async () => {
+          const zip = new JSZip();
+          const sizes = [16, 24, 32, 48, 64];
+          for (const size of sizes) {
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, size, size);
+            const icoDataUrl = canvas.toDataURL('image/x-icon');
+            const icoBlob = await (await fetch(icoDataUrl)).blob();
+            zip.file(`favicon-${size}.ico`, icoBlob);
+          }
+          const zipBlob = await zip.generateAsync({type: 'blob'});
+          saveAs(zipBlob, 'favicon.zip');
+        };
+      });
+    </script>
+  </body>
+</html>
