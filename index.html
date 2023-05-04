@@ -3,14 +3,43 @@
   <head>
     <meta charset="UTF-8">
     <title>Image to Icon Converter</title>
-  </head>
-  <body>
-    <form>
-      <input type="file" accept="image/*">
-      <button type="submit">Convert</button>
-    </form>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8368997072131126"crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.3.0/dist/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+
+    <script>
+
+      fetch('https://www.olieverard.co.uk/components/navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.querySelector('#navbar-container').innerHTML = html;
+        });
+</script>
+
+
+
+
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+      <div class="text-center lg:w-2/3 w-full">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">.ico Image Converter</h1>
+        <p class="mb-8 leading-relaxed">Please upload an image fine, and a selection of .ico will be created for you. All of this is done client side, there's no uploading of your images to the internet!</p>
+        <div class="flex justify-center">
+            <form>
+                <input class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg" type="file" accept="image/*">
+                <button type="submit" class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">Convert</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
     <script>
       const form = document.querySelector('form');
       form.addEventListener('submit', async (event) => {
